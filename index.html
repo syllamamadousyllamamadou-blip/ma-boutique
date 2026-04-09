@@ -4,10 +4,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Maison Sylla | Élégance & Prêt-à-porter</title>
-    <meta name="description" content="Découvrez Maison Sylla, la référence en prêt-à-porter, sacs et accessoires.">
     
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
     
+    <!-- Meta Pixel Code -->
+    <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', 'TON_PIXEL_ID_ICI'); // ⚠️ REMPLACE PAR TON VRAI NUMÉRO DE PIXEL PLUS TARD
+    fbq('track', 'PageView');
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=TON_PIXEL_ID_ICI&ev=PageView&noscript=1"
+    /></noscript>
+    <!-- End Meta Pixel Code -->
+
     <style>
         :root {
             --primary: #000000; --bg-color: #FFFFFF; --text-dark: #000000;
@@ -49,7 +66,7 @@
         .logo { display: flex; align-items: center; text-decoration: none; }
         .logo img { height: 50px; object-fit: contain; } 
 
-        .mobile-menu-btn { background: none; border: none; font-size: 24px; cursor: pointer; display: block; padding: 0; }
+        .mobile-menu-btn { background: none; border: none; font-size: 24px; cursor: pointer; display: block; padding: 0;}
         .desktop-nav-links { display: none; flex: 2; justify-content: center; gap: 20px; font-weight: 600; font-size: 14px; letter-spacing: 1px; }
         .desktop-nav-links a { color: var(--text-dark); text-decoration: none; text-transform: uppercase; padding: 5px 0;}
         .desktop-nav-links a:hover, .desktop-nav-links a.active { border-bottom: 2px solid var(--primary); }
@@ -61,15 +78,8 @@
             color: var(--white); font-size: 10px; padding: 2px 5px; border-radius: 50%; font-weight: 800;
         }
 
-        /* --- RECHERCHE STATIQUE DISCRÈTE --- */
-        .static-search-bar {
-            background: #F9F9F9; border-bottom: 1px solid var(--border-color);
-            padding: 8px 20px; display: flex; align-items: center;
-        }
-        .static-search-bar input {
-            width: 100%; background: transparent; border: none; outline: none; font-family: inherit;
-            font-size: 13px; padding: 5px;
-        }
+        .static-search-bar { background: #F9F9F9; border-bottom: 1px solid var(--border-color); padding: 8px 20px; display: flex; align-items: center; }
+        .static-search-bar input { width: 100%; background: transparent; border: none; outline: none; font-family: inherit; font-size: 13px; padding: 5px; }
 
         /* --- SIDE MENU (Mobile) --- */
         #side-menu-overlay {
@@ -82,9 +92,9 @@
         }
         .side-menu-header { display: flex; justify-content: space-between; padding: 20px; border-bottom: 1px solid var(--border-color); }
         .side-menu-header img { height: 40px; }
-        .side-menu-links { list-style: none; padding: 20px; flex: 1; }
+        .side-menu-links { list-style: none; padding: 20px; flex: 1; overflow-y: auto; }
         .side-menu-links li { margin-bottom: 20px; }
-        .side-menu-links a { font-size: 18px; font-weight: 600; text-transform: uppercase; text-decoration: none; color: var(--text-dark); display: block; }
+        .side-menu-links a { font-size: 16px; font-weight: 600; text-transform: uppercase; text-decoration: none; color: var(--text-dark); display: block; }
         
         /* --- HERO BANNER --- */
         .hero {
@@ -94,13 +104,9 @@
         }
         .hero-content { position: relative; z-index: 10; color: var(--primary); }
         .hero h1 { font-size: 40px; font-weight: 800; text-transform: uppercase; line-height: 1.1; margin-bottom: 10px; }
-        .hero-btn { background: var(--primary); color: var(--white); padding: 12px 24px; text-transform: uppercase; font-weight: 800; font-size: 14px; border: none; cursor: pointer; margin-top: 10px; transition: background 0.3s; }
-        .hero-btn:hover { background: var(--text-light); }
 
         /* --- CATEGORIES SCROLLABLES --- */
-        .categories-wrapper {
-            padding: 15px 20px; overflow-x: auto; white-space: nowrap; border-bottom: 1px solid var(--border-color);
-        }
+        .categories-wrapper { padding: 15px 20px; overflow-x: auto; white-space: nowrap; border-bottom: 1px solid var(--border-color); }
         .categories-wrapper::-webkit-scrollbar { display: none; }
         .cat-btn {
             background: transparent; border: 1px solid var(--border-color); padding: 8px 20px; margin-right: 10px;
@@ -148,12 +154,12 @@
         }
         @keyframes slideUp { from {transform: translateY(100%);} to {transform: translateY(0);} }
         .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
-        .modal-header h2 { font-size: 20px; font-weight: 800; text-transform: uppercase; }
+        .modal-header h2 { font-size: 20px; font-weight: 800; text-transform: uppercase; margin:0;}
         .close-btn { font-size: 30px; cursor: pointer; line-height: 1; }
         
         .form-group { margin-bottom: 15px; }
         .form-group input { width: 100%; padding: 15px; border: 1px solid var(--border-color); background-color: #F9F9F9; font-family: inherit; font-size: 14px; }
-        #cart-summary { background: #F9F9F9; padding: 15px; margin-bottom: 20px; font-size: 13px; }
+        #cart-summary { background: #F9F9F9; padding: 15px; margin-bottom: 20px; border-radius: 8px; }
         .btn-valider { background: var(--primary); color: var(--white); border: none; padding: 18px; font-size: 14px; text-transform: uppercase; font-weight: 800; cursor: pointer; width: 100%; margin-top: 10px; }
 
         .modal-produit-image { width: 100%; aspect-ratio: 4/5; object-fit: cover; margin-bottom: 15px; }
@@ -195,13 +201,11 @@
             <img src="https://i.postimg.cc/52k6vBRM/Design-sans-titre-(9).png" alt="Maison Sylla">
             <span class="close-btn" onclick="toggleSideMenu()">&times;</span>
         </div>
-        <ul class="side-menu-links">
-            <li><a href="#" onclick="toggleSideMenu(); filtrerProduits('Tout')">Toute la collection</a></li>
-            <li><a href="#" onclick="toggleSideMenu(); filtrerProduits('Homme')">Homme</a></li>
-            <li><a href="#" onclick="toggleSideMenu(); filtrerProduits('Femme')">Femme</a></li>
-            <li><a href="#" onclick="toggleSideMenu(); filtrerProduits('Enfants')">Enfants</a></li>
-            <li><a href="#" onclick="toggleSideMenu(); filtrerProduits('Divers')">Divers</a></li>
-        </ul>
+        <!-- Menus générés par JavaScript ici -->
+        <ul class="side-menu-links" id="side-menu-cats"></ul>
+        <div style="padding: 20px; border-top: 1px solid #eee;">
+            <a href="https://wa.me/2250758245530" target="_blank" style="font-size: 14px; color: #767677; text-decoration: none; font-weight: 600;">Contactez-nous</a>
+        </div>
     </div>
 
     <div class="top-promo">
@@ -218,13 +222,8 @@
             </a>
         </div>
         
-        <div class="desktop-nav-links">
-            <a href="#" onclick="filtrerProduits('Tout', this); return false;" class="active">Tout</a>
-            <a href="#" onclick="filtrerProduits('Homme', this); return false;">Homme</a>
-            <a href="#" onclick="filtrerProduits('Femme', this); return false;">Femme</a>
-            <a href="#" onclick="filtrerProduits('Enfants', this); return false;">Enfants</a>
-            <a href="#" onclick="filtrerProduits('Divers', this); return false;">Divers</a>
-        </div>
+        <!-- Menus générés par JavaScript ici -->
+        <div class="desktop-nav-links" id="desktop-nav-links"></div>
 
         <div class="nav-right">
             <div class="panier-btn-container" onclick="voirPanier()">
@@ -234,7 +233,6 @@
         </div>
     </nav>
     
-    <!-- Recherche Rapide (Statique & Discrète) -->
     <div class="static-search-bar">
         <span style="font-size: 14px; margin-right: 10px;">🔍</span>
         <input type="text" placeholder="Rechercher un article..." oninput="rechercherDynamique(this.value)">
@@ -243,17 +241,11 @@
     <header class="hero" id="hero-section">
         <div class="hero-content">
             <h1>Nouvelle<br>Collection</h1>
-            <button class="hero-btn" onclick="document.getElementById('shop').scrollIntoView({behavior: 'smooth'})">DÉCOUVRIR →</button>
         </div>
     </header>
 
-    <div class="categories-wrapper" id="mobile-cats">
-        <button class="cat-btn active" onclick="filtrerProduits('Tout', this)">TOUT</button>
-        <button class="cat-btn" onclick="filtrerProduits('Homme', this)">HOMME</button>
-        <button class="cat-btn" onclick="filtrerProduits('Femme', this)">FEMME</button>
-        <button class="cat-btn" onclick="filtrerProduits('Enfants', this)">ENFANTS</button>
-        <button class="cat-btn" onclick="filtrerProduits('Divers', this)">DIVERS</button>
-    </div>
+    <!-- Menus générés par JavaScript ici -->
+    <div class="categories-wrapper" id="mobile-cats"></div>
 
     <main class="container" id="shop">
         <h2 class="section-title" id="titre-catalogue">Toute la Collection</h2>
@@ -274,19 +266,22 @@
         </div>
     </div>
 
-    <!-- Panier -->
+    <!-- Panier Interactif -->
     <div id="modal-commande" class="modal">
         <div class="modal-content">
             <div class="modal-header">
-                <h2>Panier</h2><span class="close-btn" onclick="fermerModal()">&times;</span>
+                <h2>VOTRE PANIER</h2><span class="close-btn" onclick="fermerModal()">&times;</span>
             </div>
+            
+            <!-- Le résumé du panier interactif apparaîtra ici -->
             <div id="cart-summary"></div>
+            
             <form id="form-commande" onsubmit="envoyerCommande(event)">
                 <div class="form-group"><input type="text" id="client-nom" required placeholder="Nom complet"></div>
                 <div class="form-group"><input type="text" id="client-ville" required placeholder="Ville de livraison"></div>
                 <div class="form-group"><input type="tel" id="client-tel" placeholder="Numéro de téléphone"></div>
                 <p style="font-size: 11px; color: #767677; text-align: center; margin: 15px 0;">Commande sécurisée via WhatsApp.</p>
-                <button type="submit" class="btn-valider">VALIDER LA COMMANDE</button>
+                <button type="submit" class="btn-valider" id="btn-valider-commande">VALIDER LA COMMANDE</button>
             </form>
         </div>
     </div>
@@ -295,11 +290,9 @@
 
     <footer>
         <div class="social-links">
-            <!-- Icône Instagram SVG -->
             <a href="https://www.instagram.com/maison_sylla/" target="_blank" title="Instagram">
                 <svg class="social-icon" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.07zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
             </a>
-            <!-- Icône Facebook SVG -->
             <a href="https://www.facebook.com/profile.php?id=61572328257550" target="_blank" title="Facebook">
                 <svg class="social-icon" viewBox="0 0 24 24"><path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z"/></svg>
             </a>
@@ -318,23 +311,56 @@
         let tousLesProduits = []; 
         const NUMERO_WHATSAPP = "2250758245530"; 
 
-        // --- PANIER PERSISTANT (LocalStorage) ---
+        // --- GESTION DU PANIER (Calculs & Sauvegarde) ---
         function sauvegarderPanier() {
             localStorage.setItem('maison_sylla_panier', JSON.stringify(panier));
-            localStorage.setItem('maison_sylla_articles', panierArticles);
-            localStorage.setItem('maison_sylla_total', panierTotal);
+        }
+
+        function mettreAJourTotauxPanier() {
+            panierArticles = 0;
+            panierTotal = 0;
+            for (const details of Object.values(panier)) {
+                panierArticles += details.quantite;
+                panierTotal += (details.prix * details.quantite);
+            }
+            document.getElementById('compteur-panier').innerText = panierArticles;
+            sauvegarderPanier();
         }
 
         function chargerPanier() {
             if(localStorage.getItem('maison_sylla_panier')) {
-                // Ajout de sécurités (|| {} et || 0) pour éviter les crashs (Faille #1)
                 panier = JSON.parse(localStorage.getItem('maison_sylla_panier')) || {};
-                panierArticles = parseInt(localStorage.getItem('maison_sylla_articles')) || 0;
-                panierTotal = parseInt(localStorage.getItem('maison_sylla_total')) || 0;
-                document.getElementById('compteur-panier').innerText = panierArticles;
+                mettreAJourTotauxPanier();
             }
         }
-        chargerPanier(); // Charge le panier dès l'ouverture du site
+        chargerPanier();
+
+        // --- GENERATION DYNAMIQUE DES CATEGORIES ---
+        function genererCategories(produits) {
+            const categoriesSet = new Set();
+            produits.forEach(p => {
+                if (p.categorie && p.categorie.trim() !== "") categoriesSet.add(p.categorie.trim());
+            });
+            const categories = Array.from(categoriesSet).sort();
+
+            const desktopNav = document.getElementById('desktop-nav-links');
+            const mobileTabs = document.getElementById('mobile-cats');
+            const sideMenu = document.getElementById('side-menu-cats');
+
+            let desktopHTML = `<a href="#" onclick="filtrerProduits('Tout', this); return false;" class="cat-link active">Tout</a>`;
+            let tabsHTML = `<button class="cat-btn active cat-link" onclick="filtrerProduits('Tout', this)">TOUT</button>`;
+            let sideHTML = `<li><a href="#" onclick="toggleSideMenu(); filtrerProduits('Tout')" class="cat-link active">Toute la collection</a></li>`;
+
+            categories.forEach(cat => {
+                desktopHTML += `<a href="#" onclick="filtrerProduits('${cat}', this); return false;" class="cat-link">${cat}</a>`;
+                tabsHTML += `<button class="cat-btn cat-link" onclick="filtrerProduits('${cat}', this)">${cat.toUpperCase()}</button>`;
+                sideHTML += `<li><a href="#" onclick="toggleSideMenu(); filtrerProduits('${cat}')" class="cat-link">${cat}</a></li>`;
+            });
+
+            desktopNav.innerHTML = desktopHTML;
+            mobileTabs.innerHTML = tabsHTML;
+            sideMenu.innerHTML = sideHTML;
+        }
 
         function formaterFCFA(montant) { return new Intl.NumberFormat('fr-FR').format(montant) + ' FCFA'; }
 
@@ -363,17 +389,20 @@
             afficherProduits(resultats);
         }
 
+        // --- INTERACTION PANIER ---
         function ajouterAuPanier(prix, nom, boutonElement = null) {
             if (panier[nom]) panier[nom].quantite++;
             else panier[nom] = { prix: prix, quantite: 1 };
             
-            panierArticles++; panierTotal += prix;
-            document.getElementById('compteur-panier').innerText = panierArticles;
-            
-            sauvegarderPanier(); // Sauvegarde en mémoire
+            mettreAJourTotauxPanier();
             afficherToast("ARTICLE AJOUTÉ ✓");
             fermerDetail(); 
             
+            // PIXEL META
+            if (typeof fbq === 'function') {
+                fbq('track', 'AddToCart', { content_name: nom, value: prix, currency: 'XOF' });
+            }
+
             if(boutonElement) {
                 const txtOriginal = boutonElement.innerText;
                 boutonElement.innerText = "AJOUTÉ";
@@ -381,22 +410,53 @@
             }
         }
 
-        function fermerModal() { 
-            document.getElementById('modal-commande').style.display = "none"; 
-            document.body.style.overflow = "auto"; // Réactive le défilement (Faille #2)
+        function modifierQuantite(nom, delta) {
+            if (panier[nom]) {
+                panier[nom].quantite += delta;
+                if (panier[nom].quantite <= 0) delete panier[nom];
+                mettreAJourTotauxPanier();
+                voirPanier(); // Met à jour l'affichage immédiatement
+            }
         }
 
-        function voirPanier() {
-            if(panierArticles === 0) { afficherToast("Votre panier est vide"); return; } 
-            let htmlResume = "<ul style='list-style:none; padding:0;'>";
-            for (const [nom, details] of Object.entries(panier)) {
-                let prixLigne = details.prix * details.quantite;
-                htmlResume += `<li style='margin-bottom:10px; display:flex; justify-content:space-between;'><span><strong>${details.quantite}x</strong> ${nom}</span> <span style="color:#767677">${formaterFCFA(prixLigne)}</span></li>`;
+        function supprimerArticle(nom) {
+            if (panier[nom]) {
+                delete panier[nom];
+                mettreAJourTotauxPanier();
+                voirPanier(); 
             }
-            htmlResume += `</ul><div style="border-top:1px solid #ddd; padding-top:10px; margin-top:10px; font-size:16px;"><strong>TOTAL: ${formaterFCFA(panierTotal)}</strong></div>`;
-            document.getElementById('cart-summary').innerHTML = htmlResume;
+        }
+
+        function fermerModal() { document.getElementById('modal-commande').style.display = "none"; document.body.style.overflow = "auto"; }
+
+        function voirPanier() {
+            if(panierArticles === 0) { 
+                document.getElementById('cart-summary').innerHTML = "<p style='text-align:center; padding:20px; color:var(--text-light);'>Votre panier est vide.</p>";
+                document.getElementById('form-commande').style.display = "none";
+            } else {
+                document.getElementById('form-commande').style.display = "block";
+                let htmlResume = "<div style='display:flex; flex-direction:column; gap:10px;'>";
+                for (const [nom, details] of Object.entries(panier)) {
+                    htmlResume += `
+                    <div style="display:flex; justify-content:space-between; align-items:center; background:#fff; padding:12px; border-radius:8px; border:1px solid #EBEBEB;">
+                        <div style="flex:1;">
+                            <div style="font-weight:600; font-size:12px; text-transform:uppercase;">${nom}</div>
+                            <div style="color:var(--text-light); font-size:12px;">${formaterFCFA(details.prix)} l'unité</div>
+                        </div>
+                        <div style="display:flex; align-items:center; gap:8px;">
+                            <button type="button" onclick="modifierQuantite('${nom.replace(/'/g, "\\'")}', -1)" style="border:1px solid #ccc; background:#f9f9f9; width:28px; height:28px; border-radius:4px; cursor:pointer; font-weight:bold;">-</button>
+                            <span style="font-weight:800; font-size:14px; width:20px; text-align:center;">${details.quantite}</span>
+                            <button type="button" onclick="modifierQuantite('${nom.replace(/'/g, "\\'")}', 1)" style="border:1px solid #ccc; background:#f9f9f9; width:28px; height:28px; border-radius:4px; cursor:pointer; font-weight:bold;">+</button>
+                            <button type="button" onclick="supprimerArticle('${nom.replace(/'/g, "\\'")}')" style="border:none; background:none; color:var(--alert-red); cursor:pointer; font-size:18px; margin-left:10px;" title="Supprimer">🗑️</button>
+                        </div>
+                    </div>`;
+                }
+                htmlResume += `</div><div style="border-top:1px solid #ddd; padding-top:15px; margin-top:15px; font-size:18px; text-align:right;"><strong>TOTAL: <span style="color:var(--primary)">${formaterFCFA(panierTotal)}</span></strong></div>`;
+                document.getElementById('cart-summary').innerHTML = htmlResume;
+            }
+            
             document.getElementById('modal-commande').style.display = "flex";
-            document.body.style.overflow = "hidden"; // Bloque le défilement arrière (Faille #2)
+            document.body.style.overflow = "hidden";
         }
 
         function envoyerCommande(event) {
@@ -411,12 +471,16 @@
             }
             message += `\n*TOTAL : ${formaterFCFA(panierTotal)}*\n`;
             
+            // PIXEL META
+            if (typeof fbq === 'function') {
+                fbq('track', 'InitiateCheckout', { value: panierTotal, currency: 'XOF' });
+            }
+
             window.open(`https://wa.me/${NUMERO_WHATSAPP}?text=${encodeURIComponent(message)}`, '_blank');
             
             fermerModal(); 
-            panier = {}; panierArticles = 0; panierTotal = 0; 
-            sauvegarderPanier(); // Vide le stockage
-            document.getElementById('compteur-panier').innerText = "0"; 
+            panier = {}; 
+            mettreAJourTotauxPanier();
             document.getElementById('form-commande').reset(); 
         }
 
@@ -440,13 +504,10 @@
             
             document.getElementById('detail-btn-add').onclick = function() { ajouterAuPanier(produit.prix, produit.nom, this); };
             document.getElementById('modal-produit').style.display = 'flex';
-            document.body.style.overflow = "hidden"; // Bloque le défilement (Faille #2)
+            document.body.style.overflow = "hidden";
         }
 
-        function fermerDetail() { 
-            document.getElementById('modal-produit').style.display = 'none'; 
-            document.body.style.overflow = "auto"; // Réactive le défilement (Faille #2)
-        }
+        function fermerDetail() { document.getElementById('modal-produit').style.display = 'none'; document.body.style.overflow = "auto"; }
 
         const conteneur = document.getElementById('grille-produits');
 
@@ -465,7 +526,8 @@
                 htmlPrix += `<span style="color: ${produit.ancien_prix ? 'var(--promo-red)' : 'var(--primary)'}">${formaterFCFA(produit.prix)}</span>`;
 
                 let stockHTML = "";
-                if (produit.stock && produit.stock <= 5) stockHTML = `<div class="stock-alert">Plus que ${produit.stock} en stock</div>`;
+                if (produit.stock && produit.stock <= 5 && produit.stock > 0) stockHTML = `<div class="stock-alert">Plus que ${produit.stock} en stock</div>`;
+                if (produit.stock === 0) stockHTML = `<div class="stock-alert" style="color:#767677">Rupture de stock</div>`;
 
                 conteneur.innerHTML += `
                     <div class="produit-carte">
@@ -477,7 +539,7 @@
                             <h3 class="produit-nom" onclick="ouvrirDetail(${produit.id})">${produit.nom}</h3>
                             <div class="produit-prix">${htmlPrix}</div>
                             ${stockHTML}
-                            <button class="btn-acheter-rapide" onclick="ajouterAuPanier(${produit.prix}, '${produit.nom.replace(/'/g, "\\'")}', this)">ACHETER</button>
+                            <button class="btn-acheter-rapide" onclick="ajouterAuPanier(${produit.prix}, '${produit.nom.replace(/'/g, "\\'")}', this)" ${produit.stock === 0 ? 'disabled style="opacity:0.5; cursor:not-allowed;"' : ''}>ACHETER</button>
                         </div>
                     </div>
                 `;
@@ -487,29 +549,30 @@
         window.filtrerProduits = function(categorie, btnElement = null) {
             document.getElementById('titre-catalogue').innerText = categorie === 'Tout' ? 'Toute la Collection' : categorie;
             
+            // Nettoie l'état actif de tous les boutons
+            document.querySelectorAll('.cat-link').forEach(a => a.classList.remove('active'));
+            
             if(btnElement) {
-                document.querySelectorAll('.cat-btn, .desktop-nav-links a').forEach(a => a.classList.remove('active'));
                 btnElement.classList.add('active');
+            } else {
+                // Active le bon lien si cliqué depuis le menu latéral
+                document.querySelectorAll('.cat-link').forEach(a => {
+                    if(a.innerText.trim().toLowerCase() === categorie.toLowerCase()) a.classList.add('active');
+                });
             }
 
             afficherProduits(categorie === 'Tout' ? tousLesProduits : tousLesProduits.filter(p => p.categorie === categorie));
         }
 
-        // Données de secours en cas de problème de serveur (Faille #3)
-        const produitsSecours = [
-            { id: 1, nom: "Ensemble Coton Premium", description: "Confort absolu, coupe moderne.", prix: 45000, ancien_prix: 60000, stock: 3, categorie: "Homme", badge: "PROMO", image: "https://images.unsplash.com/photo-1617137968427-85924c800a22?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" },
-            { id: 2, nom: "Robe Élégante", description: "Parfaite pour vos événements.", prix: 65000, stock: 12, categorie: "Femme", badge: "EXCLUSIVITÉ", image: "https://images.unsplash.com/photo-1595777457583-95e059d581b8?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" },
-            { id: 3, nom: "Baskets Urbaines", description: "Style streetwear.", prix: 35000, stock: 4, categorie: "Homme", badge: "", image: "https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" },
-            { id: 4, nom: "T-shirt Enfant", description: "Doux pour la peau.", prix: 15000, ancien_prix: 20000, stock: 25, categorie: "Enfants", badge: "BEST-SELLER", image: "https://images.unsplash.com/photo-1519241047957-be31d7379a5d?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" }
-        ];
-
         fetch('/api')
             .then(response => response.json())
-            .then(produits => { tousLesProduits = produits; afficherProduits(tousLesProduits); })
+            .then(produits => { 
+                tousLesProduits = produits; 
+                genererCategories(tousLesProduits); // Crée les menus automatiquement
+                afficherProduits(tousLesProduits); 
+            })
             .catch(() => { 
-                console.warn("Utilisation du mode hors-ligne.");
-                tousLesProduits = produitsSecours; 
-                afficherProduits(tousLesProduits);
+                conteneur.innerHTML = "<p style='grid-column: 1/-1;'>Erreur de chargement de la base de données. Veuillez actualiser.</p>";
             });
     </script>
 </body>
