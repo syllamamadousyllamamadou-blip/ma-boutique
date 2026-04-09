@@ -233,35 +233,64 @@
 
     <!-- LOGIQUE JAVASCRIPT -->
     <script>
-        // Variables du panier
+        // Variables du panier intelligent
+        let panier = {}; // Va stocker les articles (ex: "Sac": {prix: 25000, quantite: 1})
         let panierArticles = 0;
         let panierTotal = 0;
+
+        // TON NUMÉRO WHATSAPP (Format international sans le "+")
+        const NUMERO_WHATSAPP = "2250758245530"; 
 
         // Fonction pour formater en Franc CFA propre (ex: 15 000 FCFA)
         function formaterFCFA(montant) {
             return new Intl.NumberFormat('fr-FR').format(montant) + ' FCFA';
         }
 
-        // Fonction d'ajout au panier (Optimisée pour tracker les conversions Meta Ads plus tard)
+        // Fonction d'ajout au panier
         function ajouterAuPanier(prix, nom) {
+            // Si le produit est déjà dans le panier, on augmente la quantité
+            if (panier[nom]) {
+                panier[nom].quantite++;
+            } else {
+                // Sinon on le crée
+                panier[nom] = { prix: prix, quantite: 1 };
+            }
+
             panierArticles++;
             panierTotal += prix;
             
+            // Mise à jour de l'affichage
             document.getElementById('compteur-panier').innerText = panierArticles;
             document.getElementById('total-panier').innerText = formaterFCFA(panierTotal);
 
-            // Petit effet visuel pour rassurer le client
+            // Petit effet visuel
             alert(nom + " a été ajouté à votre panier !");
-            
-            // Ici, plus tard, on ajoutera le code : fbq('track', 'AddToCart', {value: prix, currency: 'XOF'});
         }
 
+        // Fonction pour envoyer la commande vers WhatsApp
         function voirPanier() {
             if(panierArticles === 0) {
                 alert("Votre panier est vide. Découvrez nos produits !");
-            } else {
-                alert("Total de votre commande : " + formaterFCFA(panierTotal) + "\n\nBientôt, ce bouton vous amènera vers la page de paiement sécurisée !");
+                return;
+            } 
+
+            // Construction du message WhatsApp
+            let message = "👋 Bonjour Maison Authentique !\n\nJe souhaite passer une commande :\n\n";
+            
+            // On liste chaque article du panier
+            for (const [nom, details] of Object.entries(panier)) {
+                let prixLigne = details.prix * details.quantite;
+                message += `▪️ ${details.quantite}x ${nom} (${formaterFCFA(prixLigne)})\n`;
             }
+            
+            message += `\n*💰 TOTAL : ${formaterFCFA(panierTotal)}*\n\n`;
+            message += "Merci de m'indiquer la marche à suivre pour le paiement et la livraison. 🚚";
+
+            // On encode le message pour qu'il soit compatible avec une URL internet
+            let messageEncode = encodeURIComponent(message);
+            
+            // On ouvre WhatsApp (sur l'application mobile ou WhatsApp Web sur PC)
+            window.open(`https://wa.me/${NUMERO_WHATSAPP}?text=${messageEncode}`, '_blank');
         }
 
         // Récupération des produits depuis le serveur Python
