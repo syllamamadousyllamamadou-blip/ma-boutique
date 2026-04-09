@@ -478,6 +478,21 @@
             // Fermer la fenêtre et ouvrir WhatsApp
             fermerModal();
             window.open(`https://wa.me/${NUMERO_WHATSAPP}?text=${messageEncode}`, '_blank');
+
+            // --- NOUVEAUTÉ : VIDER LE PANIER APRÈS LA COMMANDE ---
+            panier = {};               // Vide la mémoire des articles
+            panierArticles = 0;        // Remet le compteur à 0
+            panierTotal = 0;           // Remet le prix à 0
+            
+            // Met à jour l'affichage en haut de la page
+            document.getElementById('compteur-panier').innerText = "0";
+            document.getElementById('total-panier').innerText = "0 FCFA";
+            
+            // Vide les champs du formulaire (Nom, Ville, Tel)
+            document.getElementById('form-commande').reset(); 
+
+            // Petit message sympa pour le retour sur le site
+            setTimeout(() => afficherToast("🎉 Merci pour votre commande !"), 1000);
         }
 
         // Récupération des produits depuis le serveur Python
