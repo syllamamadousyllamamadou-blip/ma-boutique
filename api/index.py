@@ -15,7 +15,7 @@ app.add_middleware(
 )
 
 # ⚠️ REMPLACE CETTE VALEUR PAR L'ID DE TON GOOGLE SHEET
-SHEET_ID = "TON_ID_GOOGLE_SHEET_ICI" 
+SHEET_ID = "1JKuBcj5vSInz0pp7vwKSDyuW-4Lu763SZRFngUSdcs0" 
 # Ne touche pas à cette ligne, elle transforme ton Sheet en fichier CSV lisible par Python
 SHEET_URL = f"https://docs.google.com/spreadsheets/d/{SHEET_ID}/gviz/tq?tqx=out:csv"
 
