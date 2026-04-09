@@ -1,124 +1,311 @@
 <!DOCTYPE html>
 <html lang="fr">
-  <head>
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ma Boutique Premium</title>
+    <title>Maison Authentique | Créations Uniques</title>
+    
+    <!-- Meta Ads Pixel (Placeholder) -->
+    <!-- Place ton code Pixel Facebook ici plus tard -->
+    
+    <!-- Polices Google pour un look Pro et Humain -->
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    
     <style>
-      body {
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        background-color: #f4f4f9;
-        color: #333;
-        text-align: center;
-        padding: 20px;
-      }
-      .header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        background: white;
-        padding: 10px 30px;
-        border-radius: 10px;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        margin-bottom: 30px;
-      }
-      .panier {
-        font-size: 18px;
-        background: #0070f3;
-        color: white;
-        padding: 10px 20px;
-        border-radius: 8px;
-      }
-      .panier-total {
-        font-weight: bold;
-        color: #ffd700; /* Couleur dorée pour l'argent */
-        margin-left: 10px;
-      }
-      
-      #liste-produits {
-        display: flex;
-        justify-content: center;
-        gap: 20px;
-        flex-wrap: wrap;
-      }
-      .produit {
-        background: white;
-        padding: 20px;
-        border-radius: 10px;
-        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-        width: 250px;
-      }
-      .emoji-img {
-        font-size: 60px;
-        margin: 10px 0;
-      }
-      button {
-        background-color: #0070f3;
-        color: white;
-        border: none;
-        padding: 10px 20px;
-        border-radius: 5px;
-        cursor: pointer;
-        font-size: 16px;
-        margin-top: 10px;
-        width: 100%;
-        transition: 0.2s;
-      }
-      button:hover {
-        background-color: #005bb5;
-        transform: scale(1.05);
-      }
+        /* Couleurs : Chaudes, naturelles, inspirant la confiance */
+        :root {
+            --primary: #C07F5A; /* Terracotta chaleureux */
+            --primary-hover: #A56847;
+            --bg-color: #FAF8F5; /* Blanc cassé doux */
+            --text-dark: #2C3E50;
+            --text-light: #7F8C8D;
+            --white: #FFFFFF;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        /* --- NAVIGATION --- */
+        nav {
+            background: var(--white);
+            padding: 15px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            font-family: 'Lora', serif;
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .panier-btn {
+            background: var(--bg-color);
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .panier-btn:hover {
+            background: var(--primary);
+            color: var(--white);
+        }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            text-align: center;
+            padding: 80px 20px;
+            background: linear-gradient(rgba(250, 248, 245, 0.9), rgba(250, 248, 245, 0.9)), url('https://images.unsplash.com/photo-1441986300917-64674bd600d8?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') center/cover;
+        }
+
+        .hero h1 {
+            font-family: 'Lora', serif;
+            font-size: 42px;
+            color: var(--text-dark);
+            margin-bottom: 15px;
+        }
+
+        .hero p {
+            font-size: 18px;
+            color: var(--text-light);
+            max-width: 600px;
+            margin: 0 auto 30px;
+        }
+
+        /* --- PRODUITS --- */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 50px 20px;
+        }
+
+        .section-title {
+            text-align: center;
+            font-family: 'Lora', serif;
+            font-size: 32px;
+            margin-bottom: 40px;
+        }
+
+        .grid-produits {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .produit-carte {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 25px;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.03);
+            transition: transform 0.3s;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .produit-carte:hover {
+            transform: translateY(-5px);
+        }
+
+        .produit-image {
+            font-size: 70px;
+            margin-bottom: 15px;
+            background: var(--bg-color);
+            border-radius: 10px;
+            padding: 20px;
+        }
+
+        .produit-nom {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .produit-desc {
+            font-size: 14px;
+            color: var(--text-light);
+            margin-bottom: 20px;
+        }
+
+        .produit-prix {
+            font-size: 22px;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+
+        .btn-acheter {
+            background: var(--primary);
+            color: var(--white);
+            border: none;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            transition: background 0.3s;
+        }
+
+        .btn-acheter:hover {
+            background: var(--primary-hover);
+        }
+
+        /* --- FOOTER (Confiance) --- */
+        footer {
+            background: var(--white);
+            padding: 40px 20px;
+            text-align: center;
+            border-top: 1px solid #eee;
+            margin-top: 50px;
+        }
+
+        .reassurance {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+            margin-bottom: 30px;
+        }
+
+        .badge {
+            color: var(--text-light);
+            font-size: 14px;
+        }
+
+        .badge span { display: block; font-size: 24px; margin-bottom: 5px; }
     </style>
-  </head>
-  <body>
-    
-    <div class="header">
-      <h1>Ma Boutique Premium 🛍️</h1>
-      <div class="panier">
-        🛒 <span id="compteur-panier">0</span> article(s)
-        <span class="panier-total">- Total: <span id="prix-total">0.00</span> €</span>
-      </div>
-    </div>
-    
-    <div id="liste-produits">
-      <p>Chargement des produits depuis le serveur FastAPI...</p>
-    </div>
+</head>
+<body>
 
+    <!-- Navigation -->
+    <nav>
+        <div class="logo">Maison Authentique.</div>
+        <button class="panier-btn" onclick="voirPanier()">
+            🛒 <span id="compteur-panier">0</span>
+            <span id="total-panier" style="margin-left: 5px;">0 FCFA</span>
+        </button>
+    </nav>
+
+    <!-- En-tête (Hero) -->
+    <header class="hero">
+        <h1>L'authenticité, conçue pour vous.</h1>
+        <p>Découvrez notre sélection de créations uniques. Chaque pièce raconte une histoire, prête à rejoindre la vôtre.</p>
+    </header>
+
+    <!-- Liste des produits -->
+    <main class="container">
+        <h2 class="section-title">Nos Nouveautés</h2>
+        <div id="grille-produits" class="grid-produits">
+            <p style="text-align:center; width: 100%; color: #7F8C8D;">Chargement de la collection...</p>
+        </div>
+    </main>
+
+    <!-- Pied de page (Réassurance Client) -->
+    <footer>
+        <div class="reassurance">
+            <div class="badge"><span>🔒</span>Paiement 100% Sécurisé</div>
+            <div class="badge"><span>🚚</span>Livraison Rapide</div>
+            <div class="badge"><span>💬</span>Service Client Réactif</div>
+        </div>
+        <p style="color: var(--text-light); font-size: 13px;">&copy; 2026 Maison Authentique. Tous droits réservés.</p>
+    </footer>
+
+    <!-- LOGIQUE JAVASCRIPT -->
     <script>
-      // GESTION DU PANIER INTELLIGENT
-      let nombreArticles = 0;
-      let prixTotal = 0.0;
-      
-      // La fonction reçoit maintenant le prix de l'article cliqué
-      function ajouterAuPanier(prixDuProduit) {
-        nombreArticles = nombreArticles + 1;
-        prixTotal = prixTotal + prixDuProduit; // On additionne le prix
-        
-        // On met à jour l'affichage sur la page
-        document.getElementById('compteur-panier').innerText = nombreArticles;
-        document.getElementById('prix-total').innerText = prixTotal.toFixed(2); // .toFixed(2) garde 2 chiffres après la virgule
-      }
+        // Variables du panier
+        let panierArticles = 0;
+        let panierTotal = 0;
 
-      // CONNEXION À PYTHON (FASTAPI)
-      fetch('/api')
-        .then(response => response.json())
-        .then(produits => {
-          const conteneur = document.getElementById('liste-produits');
-          conteneur.innerHTML = ''; 
+        // Fonction pour formater en Franc CFA propre (ex: 15 000 FCFA)
+        function formaterFCFA(montant) {
+            return new Intl.NumberFormat('fr-FR').format(montant) + ' FCFA';
+        }
 
-          produits.forEach(produit => {
-            const div = document.createElement('div');
-            div.className = 'produit';
-            // Regarde le bouton : on lui passe maintenant ${produit.prix} !
-            div.innerHTML = `
-              <div class="emoji-img">${produit.image}</div>
-              <h2>${produit.nom}</h2>
-              <p>Prix : <strong>${produit.prix.toFixed(2)} €</strong></p>
-              <button onclick="ajouterAuPanier(${produit.prix})">Ajouter au panier</button>
-            `;
-            conteneur.appendChild(div);
-          });
-        });
+        // Fonction d'ajout au panier (Optimisée pour tracker les conversions Meta Ads plus tard)
+        function ajouterAuPanier(prix, nom) {
+            panierArticles++;
+            panierTotal += prix;
+            
+            document.getElementById('compteur-panier').innerText = panierArticles;
+            document.getElementById('total-panier').innerText = formaterFCFA(panierTotal);
+
+            // Petit effet visuel pour rassurer le client
+            alert(nom + " a été ajouté à votre panier !");
+            
+            // Ici, plus tard, on ajoutera le code : fbq('track', 'AddToCart', {value: prix, currency: 'XOF'});
+        }
+
+        function voirPanier() {
+            if(panierArticles === 0) {
+                alert("Votre panier est vide. Découvrez nos produits !");
+            } else {
+                alert("Total de votre commande : " + formaterFCFA(panierTotal) + "\n\nBientôt, ce bouton vous amènera vers la page de paiement sécurisée !");
+            }
+        }
+
+        // Récupération des produits depuis le serveur Python
+        const conteneur = document.getElementById('grille-produits');
+
+        // Données de secours au cas où le serveur Python dort (Vercel Serverless)
+        const produitsSecours = [
+            {"id": 1, "nom": "Sac en Cuir Artisanal", "description": "Fait main avec passion.", "prix": 25000, "image": "👜"},
+            {"id": 2, "nom": "Collier Traditionnel", "description": "Authenticité et raffinement.", "prix": 12500, "image": "📿"}
+        ];
+
+        function afficherProduits(produits) {
+            conteneur.innerHTML = ''; 
+            produits.forEach(produit => {
+                const article = document.createElement('article');
+                article.className = 'produit-carte';
+                article.innerHTML = `
+                    <div>
+                        <div class="produit-image">${produit.image}</div>
+                        <h3 class="produit-nom">${produit.nom}</h3>
+                        <p class="produit-desc">${produit.description}</p>
+                    </div>
+                    <div>
+                        <div class="produit-prix">${formaterFCFA(produit.prix)}</div>
+                        <button class="btn-acheter" onclick="ajouterAuPanier(${produit.prix}, '${produit.nom.replace(/'/g, "\\'")}')">
+                            Ajouter au panier
+                        </button>
+                    </div>
+                `;
+                conteneur.appendChild(article);
+            });
+        }
+
+        // Appel à l'API Python
+        fetch('/api')
+            .then(response => {
+                if(!response.ok) throw new Error("API indisponible");
+                return response.json();
+            })
+            .then(produits => afficherProduits(produits))
+            .catch(erreur => {
+                console.log("Utilisation des données de secours en attendant le serveur Python.");
+                afficherProduits(produitsSecours);
+            });
     </script>
-  </body>
+</body>
 </html>
