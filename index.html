@@ -12,13 +12,18 @@
         text-align: center;
         padding: 50px;
       }
+      #liste-produits {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        flex-wrap: wrap;
+      }
       .produit {
         background: white;
         padding: 20px;
         border-radius: 10px;
         box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-        display: inline-block;
-        margin-top: 20px;
+        width: 250px;
       }
       button {
         background-color: #0070f3;
@@ -28,20 +33,46 @@
         border-radius: 5px;
         cursor: pointer;
         font-size: 16px;
+        margin-top: 10px;
+        width: 100%;
       }
       button:hover {
         background-color: #005bb5;
       }
+      .chargement { font-style: italic; color: #666; }
     </style>
   </head>
   <body>
     <h1>Bienvenue sur Ma Boutique Premium 🛍️</h1>
     <p>Découvrez nos produits exceptionnels.</p>
     
-    <div class="produit">
-      <h2>Article Test Python</h2>
-      <p>Prix : 29,99 €</p>
-      <button>Ajouter au panier</button>
+    <div id="liste-produits">
+      <p class="chargement">Chargement des produits depuis le serveur Python...</p>
     </div>
+
+    <script>
+      // Ce script va chercher les données de notre fichier Python
+      fetch('/api')
+        .then(response => response.json())
+        .then(produits => {
+          const conteneur = document.getElementById('liste-produits');
+          conteneur.innerHTML = ''; // On vide le message de chargement
+
+          produits.forEach(produit => {
+            const div = document.createElement('div');
+            div.className = 'produit';
+            div.innerHTML = `
+              <h2>${produit.nom}</h2>
+              <p>Prix : <strong>${produit.prix.toFixed(2)} €</strong></p>
+              <button onclick="alert('Article ajouté !')">Ajouter au panier</button>
+            `;
+            conteneur.appendChild(div);
+          });
+        })
+        .catch(erreur => {
+          document.getElementById('liste-produits').innerHTML = 
+            '<p style="color:red;">Erreur de connexion au serveur Python.</p>';
+        });
+    </script>
   </body>
 </html>
