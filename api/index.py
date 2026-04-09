@@ -1,5 +1,8 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+import csv
+import urllib.request
+import io
 
 app = FastAPI()
 
@@ -11,63 +14,43 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# ⚠️ REMPLACE CETTE VALEUR PAR L'ID DE TON GOOGLE SHEET
+SHEET_ID = "TON_ID_GOOGLE_SHEET_ICI" 
+# Ne touche pas à cette ligne, elle transforme ton Sheet en fichier CSV lisible par Python
+SHEET_URL = f"https://docs.google.com/spreadsheets/d/{SHEET_ID}/gviz/tq?tqx=out:csv"
+
 @app.get("/api")
 def lire_produits():
-    # Catalogue avec gestion des PROMOTIONS, STOCK et NOUVELLE CATÉGORIE "Divers"
-    return [
-        {
-            "id": 1, 
-            "nom": "Ensemble Coton Premium", 
-            "description": "Confort absolu, coupe moderne pour homme.",
-            "prix": 45000, 
-            "ancien_prix": 60000, # Affichera un prix barré
-            "stock": 3,           # Affichera "Plus que 3 en stock"
-            "categorie": "Homme",
-            "badge": "PROMO",
-            "image": "https://images.unsplash.com/photo-1617137968427-85924c800a22?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
-        },
-        {
-            "id": 2, 
-            "nom": "Robe de Soirée Élégante", 
-            "description": "Design exclusif, parfaite pour vos événements. Finitions soignées.",
-            "prix": 65000, 
-            "ancien_prix": None, 
-            "stock": 12,
-            "categorie": "Femme",
-            "badge": "EXCLUSIVITÉ",
-            "image": "https://images.unsplash.com/photo-1595777457583-95e059d581b8?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
-        },
-        {
-            "id": 3, 
-            "nom": "Baskets Urbaines", 
-            "description": "Style streetwear, robustes et confortables.",
-            "prix": 35000, 
-            "ancien_prix": None,
-            "stock": 4, # Créera un sentiment d'urgence
-            "categorie": "Homme",
-            "badge": "",
-            "image": "https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
-        },
-        {
-            "id": 4, 
-            "nom": "T-shirt Coton Enfant", 
-            "description": "Doux pour la peau, résistant aux jeux.",
-            "prix": 15000, 
-            "ancien_prix": 20000,
-            "stock": 25,
-            "categorie": "Enfants",
-            "badge": "BEST-SELLER",
-            "image": "https://images.unsplash.com/photo-1519241047957-be31d7379a5d?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
-        },
-        {
-            "id": 5, 
-            "nom": "Parfum Signature", 
-            "description": "Notes boisées et florales. Tenue longue durée.",
-            "prix": 55000, 
-            "ancien_prix": None,
-            "stock": 2,
-            "categorie": "Divers",
-            "badge": "NOUVEAU",
-            "image": "https://images.unsplash.com/photo-1594035910387-fea47794261f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
-        }
-    ]
+    try:
+        # 1. Python va télécharger ton Google Sheet
+        response = urllib.request.urlopen(SHEET_URL)
+        csv_data = response.read().decode('utf-8')
+        
+        # 2. Il lit les lignes
+        lecteur = csv.DictReader(io.StringIO(csv_data))
+        produits = []
+        
+        for ligne in lecteur:
+            # Sécurité : on ignore les lignes vides
+            if not ligne['nom']: continue
+                
+            # On formate les données pour que le site web les comprenne bien
+            produit = {
+                "id": int(ligne['id']) if ligne['id'] else 0,
+                "nom": ligne['nom'],
+                "description": ligne['description'],
+                "prix": int(ligne['prix']) if ligne['prix'] else 0,
+                "ancien_prix": int(ligne['ancien_prix']) if ligne.get('ancien_prix') else None,
+                "stock": int(ligne['stock']) if ligne.get('stock') else 0,
+                "categorie": ligne['categorie'],
+                "badge": ligne.get('badge', ""),
+                "image": ligne['image']
+            }
+            produits.append(produit)
+            
+        return produits
+
+    except Exception as e:
+        # En cas d'erreur (problème de lien, etc.), on renvoie une liste vide
+        print(f"Erreur lors de la lecture du Google Sheet : {e}")
+        return []
