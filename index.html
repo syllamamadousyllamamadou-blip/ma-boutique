@@ -194,6 +194,113 @@
         }
 
         .badge span { display: block; font-size: 24px; margin-bottom: 5px; }
+
+        /* --- NOUVEAUTÉS : TOAST ET MODAL --- */
+        #toast {
+            visibility: hidden;
+            min-width: 250px;
+            background-color: #2C3E50;
+            color: #fff;
+            text-align: center;
+            border-radius: 8px;
+            padding: 16px;
+            position: fixed;
+            z-index: 1000;
+            left: 50%;
+            bottom: 30px;
+            transform: translateX(-50%);
+            font-size: 15px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        #toast.show {
+            visibility: visible;
+            animation: fadein 0.5s, fadeout 0.5s 2.5s;
+        }
+        @keyframes fadein { from {bottom: 0; opacity: 0;} to {bottom: 30px; opacity: 1;} }
+        @keyframes fadeout { from {bottom: 30px; opacity: 1;} to {bottom: 0; opacity: 0;} }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 200;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.6);
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            background-color: var(--white);
+            padding: 30px;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 500px;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.2);
+        }
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+        }
+        .close-btn {
+            font-size: 28px;
+            cursor: pointer;
+            color: var(--text-light);
+        }
+        .close-btn:hover { color: var(--primary); }
+        
+        .form-group {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            font-size: 14px;
+            color: var(--text-dark);
+        }
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-family: inherit;
+        }
+        #cart-summary {
+            background: var(--bg-color);
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            text-align: left;
+            font-size: 14px;
+        }
+        #cart-summary ul { padding-left: 20px; margin-bottom: 10px; }
+        #cart-summary li { margin-bottom: 5px; }
+        .btn-valider {
+            background: #25D366; /* Vert WhatsApp */
+            color: white;
+            border: none;
+            padding: 14px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            transition: background 0.3s;
+        }
+        .btn-valider:hover { background: #20BD5A; }
     </style>
 </head>
 <body>
@@ -231,6 +338,41 @@
         <p style="color: var(--text-light); font-size: 13px;">&copy; 2026 Maison Authentique. Tous droits réservés.</p>
     </footer>
 
+    <!-- Notification Toast (Non intrusive) -->
+    <div id="toast">Article ajouté au panier !</div>
+
+    <!-- Modal de Validation de Commande -->
+    <div id="modal-commande" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Finaliser la commande</h2>
+                <span class="close-btn" onclick="fermerModal()">&times;</span>
+            </div>
+            
+            <div id="cart-summary">
+                <!-- Le résumé du panier sera injecté ici par JavaScript -->
+            </div>
+
+            <form id="form-commande" onsubmit="envoyerCommande(event)">
+                <div class="form-group">
+                    <label for="client-nom">Votre Nom & Prénom *</label>
+                    <input type="text" id="client-nom" required placeholder="Ex: Jean Dupont">
+                </div>
+                <div class="form-group">
+                    <label for="client-ville">Ville / Quartier de livraison *</label>
+                    <input type="text" id="client-ville" required placeholder="Ex: Abidjan, Cocody">
+                </div>
+                <div class="form-group">
+                    <label for="client-tel">Votre numéro de téléphone (Optionnel)</label>
+                    <input type="tel" id="client-tel" placeholder="Pour vous joindre facilement">
+                </div>
+                <button type="submit" class="btn-valider">
+                    💬 Commander via WhatsApp
+                </button>
+            </form>
+        </div>
+    </div>
+
     <!-- LOGIQUE JAVASCRIPT -->
     <script>
         // Variables du panier intelligent
@@ -246,50 +388,95 @@
             return new Intl.NumberFormat('fr-FR').format(montant) + ' FCFA';
         }
 
+        // --- NOUVEAU : Fonction pour afficher la notification discrète ---
+        function afficherToast(message) {
+            const toast = document.getElementById("toast");
+            toast.innerText = message;
+            toast.className = "show";
+            // Fait disparaître la notification après 3 secondes
+            setTimeout(function(){ toast.className = toast.className.replace("show", ""); }, 3000);
+        }
+
         // Fonction d'ajout au panier
         function ajouterAuPanier(prix, nom) {
-            // Si le produit est déjà dans le panier, on augmente la quantité
             if (panier[nom]) {
                 panier[nom].quantite++;
             } else {
-                // Sinon on le crée
                 panier[nom] = { prix: prix, quantite: 1 };
             }
 
             panierArticles++;
             panierTotal += prix;
             
-            // Mise à jour de l'affichage
             document.getElementById('compteur-panier').innerText = panierArticles;
             document.getElementById('total-panier').innerText = formaterFCFA(panierTotal);
 
-            // Petit effet visuel
-            alert(nom + " a été ajouté à votre panier !");
+            // On utilise la nouvelle notification élégante !
+            afficherToast("✅ " + nom + " ajouté au panier !");
         }
 
-        // Fonction pour envoyer la commande vers WhatsApp
+        // --- NOUVEAU : Gestion de la fenêtre Modale ---
+        function fermerModal() {
+            document.getElementById('modal-commande').style.display = "none";
+        }
+
+        // Fermer la modale si on clique dans le vide (en dehors du cadre blanc)
+        window.onclick = function(event) {
+            const modal = document.getElementById('modal-commande');
+            if (event.target == modal) {
+                fermerModal();
+            }
+        }
+
+        // Fonction pour afficher le panier et le formulaire
         function voirPanier() {
             if(panierArticles === 0) {
-                alert("Votre panier est vide. Découvrez nos produits !");
+                afficherToast("⚠️ Votre panier est vide. Ajoutez des produits !");
                 return;
             } 
 
-            // Construction du message WhatsApp
-            let message = "👋 Bonjour Maison Authentique !\n\nJe souhaite passer une commande :\n\n";
+            // Construire le résumé visuel du panier
+            let htmlResume = "<strong>Votre panier :</strong><ul>";
+            for (const [nom, details] of Object.entries(panier)) {
+                let prixLigne = details.prix * details.quantite;
+                htmlResume += `<li>${details.quantite}x ${nom} - ${formaterFCFA(prixLigne)}</li>`;
+            }
+            htmlResume += `</ul><p style="font-size: 18px; margin-top: 10px; color: var(--primary);"><strong>Total : ${formaterFCFA(panierTotal)}</strong></p>`;
             
-            // On liste chaque article du panier
+            document.getElementById('cart-summary').innerHTML = htmlResume;
+            
+            // Afficher la modale
+            document.getElementById('modal-commande').style.display = "flex";
+        }
+
+        // Fonction activée quand le client clique sur "Commander via WhatsApp"
+        function envoyerCommande(event) {
+            event.preventDefault(); // Empêche le rechargement de la page
+
+            // Récupération des infos tapées par le client
+            const nomClient = document.getElementById('client-nom').value;
+            const villeClient = document.getElementById('client-ville').value;
+            const telClient = document.getElementById('client-tel').value;
+
+            // Construction du message WhatsApp
+            let message = `👋 Bonjour Maison Authentique !\n\n`;
+            message += `Je suis *${nomClient}*\n`;
+            message += `📍 Livraison : ${villeClient}\n`;
+            if(telClient) message += `📞 Contact : ${telClient}\n`;
+            message += `\nJe souhaite valider la commande suivante :\n\n`;
+            
             for (const [nom, details] of Object.entries(panier)) {
                 let prixLigne = details.prix * details.quantite;
                 message += `▪️ ${details.quantite}x ${nom} (${formaterFCFA(prixLigne)})\n`;
             }
             
-            message += `\n*💰 TOTAL : ${formaterFCFA(panierTotal)}*\n\n`;
-            message += "Merci de m'indiquer la marche à suivre pour le paiement et la livraison. 🚚";
+            message += `\n*💰 TOTAL À PAYER : ${formaterFCFA(panierTotal)}*\n\n`;
+            message += "Merci de m'indiquer la marche à suivre pour la livraison. 🚚";
 
-            // On encode le message pour qu'il soit compatible avec une URL internet
             let messageEncode = encodeURIComponent(message);
             
-            // On ouvre WhatsApp (sur l'application mobile ou WhatsApp Web sur PC)
+            // Fermer la fenêtre et ouvrir WhatsApp
+            fermerModal();
             window.open(`https://wa.me/${NUMERO_WHATSAPP}?text=${messageEncode}`, '_blank');
         }
 
