@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Maison Sylla | Élégance & Prêt-à-porter</title>
     
+    <!-- Favicon (Icône de l'onglet du navigateur) -->
+    <link rel="icon" type="image/png" href="https://i.postimg.cc/52k6vBRM/Design-sans-titre-(9).png">
+    
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
     
     <!-- Meta Pixel Code -->
@@ -96,14 +99,56 @@
         .side-menu-links li { margin-bottom: 20px; }
         .side-menu-links a { font-size: 16px; font-weight: 600; text-transform: uppercase; text-decoration: none; color: var(--text-dark); display: block; }
         
-        /* --- HERO BANNER --- */
+        /* --- HERO BANNER (Style Éditorial Minimaliste) --- */
         .hero {
-            position: relative; height: 50vh; min-height: 350px;
-            background: linear-gradient(rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.2)), url('https://i.postimg.cc/ZnWFSb2z/AKWABA.png') center/cover no-repeat;
-            display: flex; align-items: flex-end; padding: 40px 20px;
+            background-color: var(--bg-color);
+            padding: 60px 20px 40px;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-bottom: 1px solid var(--border-color);
         }
-        .hero-content { position: relative; z-index: 10; color: var(--primary); }
-        .hero h1 { font-size: 40px; font-weight: 800; text-transform: uppercase; line-height: 1.1; margin-bottom: 10px; }
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .hero-subtitle {
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            color: var(--text-light);
+            margin-bottom: 15px;
+        }
+        .hero h1 {
+            font-size: 42px;
+            font-weight: 800;
+            text-transform: uppercase;
+            line-height: 1.05;
+            margin-bottom: 20px;
+            letter-spacing: -1px;
+            color: var(--primary);
+        }
+        .hero p {
+            font-size: 14px;
+            color: var(--text-light);
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+        .hero-btn {
+            background: var(--primary);
+            color: var(--white);
+            border: none;
+            padding: 15px 35px;
+            font-size: 12px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: opacity 0.3s;
+        }
+        .hero-btn:hover { opacity: 0.8; }
 
         /* --- CATEGORIES SCROLLABLES --- */
         .categories-wrapper { padding: 15px 20px; overflow-x: auto; white-space: nowrap; border-bottom: 1px solid var(--border-color); }
@@ -185,6 +230,9 @@
             .mobile-menu-btn, .categories-wrapper { display: none; }
             .desktop-nav-links { display: flex; }
             .logo img { height: 75px; }
+            .hero { padding: 100px 20px 80px; }
+            .hero h1 { font-size: 64px; }
+            .hero p { font-size: 15px; max-width: 500px; margin-left: auto; margin-right: auto; }
             .grid-produits { grid-template-columns: repeat(4, 1fr); gap: 30px; }
             .modal-content, .modal-produit-content { width: 500px; border-radius: 0; margin: auto; height: auto; }
             .modal, .modal-produit { align-items: center; }
@@ -201,10 +249,9 @@
             <img src="https://i.postimg.cc/52k6vBRM/Design-sans-titre-(9).png" alt="Maison Sylla">
             <span class="close-btn" onclick="toggleSideMenu()">&times;</span>
         </div>
-        <!-- Menus générés par JavaScript ici -->
         <ul class="side-menu-links" id="side-menu-cats"></ul>
         <div style="padding: 20px; border-top: 1px solid #eee;">
-            <a href="https://wa.me/2250758245530" target="_blank" style="font-size: 14px; color: #767677; text-decoration: none; font-weight: 600;">Contactez-nous</a>
+            <a href="https://wa.me/2250171398483" target="_blank" style="font-size: 14px; color: #767677; text-decoration: none; font-weight: 600;">Contactez-nous</a>
         </div>
     </div>
 
@@ -222,7 +269,6 @@
             </a>
         </div>
         
-        <!-- Menus générés par JavaScript ici -->
         <div class="desktop-nav-links" id="desktop-nav-links"></div>
 
         <div class="nav-right">
@@ -240,11 +286,13 @@
 
     <header class="hero" id="hero-section">
         <div class="hero-content">
+            <div class="hero-subtitle">Maison Sylla</div>
             <h1>Nouvelle<br>Collection</h1>
+            <p>Redéfinissez vos standards avec des pièces exclusives conçues pour un style intemporel et élégant.</p>
+            <button class="hero-btn" onclick="document.getElementById('shop').scrollIntoView({behavior: 'smooth'})">DÉCOUVRIR</button>
         </div>
     </header>
 
-    <!-- Menus générés par JavaScript ici -->
     <div class="categories-wrapper" id="mobile-cats"></div>
 
     <main class="container" id="shop">
@@ -252,7 +300,6 @@
         <div id="grille-produits" class="grid-produits"><p>Chargement...</p></div>
     </main>
 
-    <!-- Fiche Produit -->
     <div id="modal-produit" class="modal-produit">
         <div class="modal-produit-content">
             <div class="modal-header">
@@ -266,14 +313,12 @@
         </div>
     </div>
 
-    <!-- Panier Interactif -->
     <div id="modal-commande" class="modal">
         <div class="modal-content">
             <div class="modal-header">
                 <h2>VOTRE PANIER</h2><span class="close-btn" onclick="fermerModal()">&times;</span>
             </div>
             
-            <!-- Le résumé du panier interactif apparaîtra ici -->
             <div id="cart-summary"></div>
             
             <form id="form-commande" onsubmit="envoyerCommande(event)">
